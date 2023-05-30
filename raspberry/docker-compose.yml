@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  spark-master:
+    image: pgigeruzh/spark:arm
+    ports:
+      - 8080:8080
+      - 7077:7077
+    networks:
+      - spark-network
+
+  spark-worker:
+    image: pgigeruzh/spark:arm
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    networks:
+      - spark-network
+
+networks:
+  spark-network:

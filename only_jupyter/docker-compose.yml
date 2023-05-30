@@ -1,0 +1,13 @@
+version: '3'
+services:
+  jupyter-spark:
+    image: jupyter/pyspark-notebook:e255f1aa00b2
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - SPARK_OPTS=--master spark://192.168.1.68:7077
+    ports:
+      - '8888:8888'
+      - '4040:4040'
+    volumes:
+      - ../notebooks:/home/jovyan/work
