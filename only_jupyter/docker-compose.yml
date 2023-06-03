@@ -1,7 +1,7 @@
 version: '3'
 services:
   jupyter-spark:
-    image: jupyter/pyspark-notebook:e255f1aa00b2
+    image: jupyter/pyspark-notebook:spark-3.4.0
     environment:
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}

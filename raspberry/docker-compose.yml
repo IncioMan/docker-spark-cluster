@@ -1,19 +1,39 @@
 version: '3'
 
 services:
+
   spark-master:
-    image: pgigeruzh/spark:arm
+    image: spark
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    command: bin/spark-class org.apache.spark.deploy.master.Master
     ports:
-      - 8080:8080
-      - 7077:7077
+      - '8080:8080'
+      - '7077:7077'
+      - '4041:4040'
     networks:
       - spark-network
 
-  spark-worker:
-    image: pgigeruzh/spark:arm
+  spark-worker1:
+    image: spark
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    networks:
+      - spark-network
+
+  spark-worker2:
+    image: spark
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
     command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
     networks:
       - spark-network
 
 networks:
   spark-network:
+
+
